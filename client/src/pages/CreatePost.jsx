@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { preview } from "../assets"
 import { getRandomPrompt } from '../utils';
 import { Loader, FormField } from '../components';
+import axios from "axios"
 
 export const CreatePost = () => {
     const navigate = useNavigate();
@@ -14,17 +15,30 @@ export const CreatePost = () => {
     const [generatingImg, setGeneratingImg] = useState(false);
     const [loading, setLoadinng] = useState(false);
 
-    const generateImg = ()=>{}
+    const generateImg = async () => {
+        if (form.prompt) {
+            try {
+                setGeneratingImg(true)
+                const data = await axios.post("http://localhost:3000/api/v1/dalle", { prompt: form.prompt })
+                setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` })
+                setGeneratingImg(false)
+            } catch (error) {
+                setGeneratingImg(false)
+                alert(error)
+            }
+        }
+        else { alert("please enter a prompt!") }
+    }
     const handleSubmit = () => { }
     const handleChange = (e) => {
         const key = e.target.name;
         const value = e.target.value;
-        setForm({...form,[key]:value})
-     }
-    const handleSupriseMe = () => { 
+        setForm({ ...form, [key]: value })
+    }
+    const handleSupriseMe = () => {
         const randomPrompt = getRandomPrompt(form.prompt)
         console.log(randomPrompt)
-        setForm({...form,prompt:randomPrompt})
+        setForm({ ...form, prompt: randomPrompt })
     }
 
 
@@ -72,20 +86,20 @@ export const CreatePost = () => {
 
                         {generatingImg && (
                             <div className='absolute inset-0 z-0 flex justify-center items-center rounded-lg bg-[rgba(0,0,0,0.5)]'>
-                                <Loader/>
+                                <Loader />
                             </div>
-                    )}
+                        )}
                     </div>
                 </div>
                 <div className='mt-5 flex gap-5' >
-                    <button 
-                    type='button'
-                    onClick={generateImg}
-                    className='text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'>
-                        {generatingImg ? "Generating..." : "generate" }
+                    <button
+                        type='button'
+                        onClick={generateImg}
+                        className='text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'>
+                        {generatingImg ? "Generating..." : "generate"}
                     </button>
                 </div>
-                
+
                 <div className='mt-10'>
                     <p className='mt-2 text-[#666e75] text-[14px]'>
                         once you have generated an image, you can share it with the community.
