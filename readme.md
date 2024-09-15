@@ -37,7 +37,12 @@ A full-stack web application that allows users to browse, create, and save recip
 
 3. **Set up environment variables:**
 
-    Create a `.env` file in the root directory of the server and add the required environment variables (MONGODB_URL, OPENAI_API_KEY, CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET).
+    Create a `.env` file in the root directory of the server and add the required environment variables:
+    - MONGODB_URL
+    - OPENAI_API_KEY
+    - CLOUDINARY_CLOUD_NAME
+    - CLOUDINARY_API_KEY
+    - CLOUDINARY_API_SECRET
 
 ## Usage
 
