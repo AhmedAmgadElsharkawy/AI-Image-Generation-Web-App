@@ -1,5 +1,5 @@
 import express from "express"
-import cors from "cors"
+import cors from 'cors';
 import env from "dotenv"
 import mongoose from "mongoose"
 import dalleRoutes from "./routes/dalleRoutes.js"
@@ -11,7 +11,7 @@ const port = 3000;
 env.config()
 mongoose.connect(process.env.MONGODB_URL);
 
-app.use(cors())
+app.use(cors());
 app.use(express.json({limit: '50mb'}))
 app.use("/api/v1/dalle",dalleRoutes);
 app.use("/api/v1/posts",postsRoutes)

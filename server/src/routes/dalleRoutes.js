@@ -26,7 +26,7 @@ dalleRoutes.get("/", async (req, res) => {
             const image = response.data.data[0].b64_json
             res.status(200).send({photo:image})
     } catch (error) {
-        console.error(error)
+        res.sendStatus(500)
     }
 })
 

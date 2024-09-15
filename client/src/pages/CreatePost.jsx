@@ -21,15 +21,31 @@ export const CreatePost = () => {
                 setGeneratingImg(true)
                 const data = await axios.post("http://localhost:3000/api/v1/dalle", { prompt: form.prompt })
                 setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` })
-                setGeneratingImg(false)
             } catch (error) {
-                setGeneratingImg(false)
                 alert(error)
             }
+            setGeneratingImg(false)
         }
         else { alert("please enter a prompt!") }
     }
-    const handleSubmit = () => { }
+
+    const handleSubmit = async(event) => {
+        event.preventDefault();
+        if (form.prompt && form.photo) {
+            setLoadinng(true);
+            try {
+                await axios.post("http://localhost:3000/api/v1/posts",form)
+                navigate("/")
+            } catch (error) {
+                alert(error)
+            }
+            setLoadinng(false);
+        }
+        else{
+            alert("please enter a prompt and generate an image")
+        }
+    }
+
     const handleChange = (e) => {
         const key = e.target.name;
         const value = e.target.value;

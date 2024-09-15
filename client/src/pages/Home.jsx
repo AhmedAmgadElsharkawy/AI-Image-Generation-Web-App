@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-
 import { Card, FormField, Loader } from '../components';
+import axios from "axios"
 
 const RenderCards = ({ data, title }) => {
   if (data?.length > 0) {
@@ -26,22 +26,12 @@ const Home = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('https://dalle-arbb.onrender.com/api/v1/post', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        setAllPosts(result.data.reverse());
-      }
+      const result = await axios.get('https://localhost:3000/api/v1/post')
+      setAllPosts(result.data.reverse());
     } catch (err) {
       alert(err);
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -110,4 +100,4 @@ const Home = () => {
   );
 };
 
-export {Home};
+export { Home };
