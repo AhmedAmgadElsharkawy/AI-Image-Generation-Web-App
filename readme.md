@@ -1,6 +1,6 @@
-# Recipe-Web-App
+# AI-Image-Generation-Web-App
 
-A full-stack web application that allows users to browse, create, and save recipes. Built using the MERN stack (MongoDB, Express, React, Node.js), with JWT authentication and Axios for API requests.
+A full stack web app for ai image generation using OpenAi API.
 
 ## Table of Contents
 - [Installation](#installation)
